@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hai Kamu 🌻</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffe6f0, #e6f7ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 32px;
+      max-width: 420px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+      text-align: center;
+      animation: pop 0.6s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.9); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 26px;
+    }
+
+    .text {
+      font-size: 15px;
+      line-height: 1.7;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.5s ease;
+    }
+
+    .text.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    button {
+      margin-top: 24px;
+      padding: 12px 26px;
+      border: none;
+      border-radius: 30px;
+      background: #ff8fab;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    .emoji {
+      position: absolute;
+      font-size: 22px;
+      animation: float 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes float {
+      from { transform: translateY(100vh); }
+      to { transform: translateY(-10vh); }
+    }
+
+    /* ===== POPUP ===== */
+    .popup-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .popup {
+      background: white;
+      border-radius: 20px;
+      padding: 24px 26px;
+      text-align: center;
+      width: 280px;
+      max-width: 85%;
+      animation: pop 0.4s ease;
+    }
+
+    .popup h2 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    .popup p {
+      margin: 8px 0 12px;
+      font-size: 15px;
+    }
+
+    .popup-img {
+      width: 120px;
+      max-width: 80%;
+      display: block;
+      margin: 6px auto 12px;
+    }
+
+    /* gambar peluk */
+    .hug-img {
+      width: 90px;
+      max-width: 70%;
+      display: block;
+      margin: 10px auto 0;
+      animation: hugImg 1.1s ease forwards;
+    }
+
+    @keyframes hugImg {
+      0% { transform: scale(0.85); opacity: 0; }
+      70% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="emoji" style="left:10%">💗</div>
+  <div class="emoji" style="left:30%; animation-delay:1s">✨</div>
+  <div class="emoji" style="left:60%; animation-delay:2s">🌸</div>
+  <div class="emoji" style="left:80%; animation-delay:3s">☁️</div>
+
+  <div class="card">
+    <h1>HYYYY!!</h1>
+    <p id="text1" class="text show">
+      Heheh.. aku bikin inih buat kamuuu
+    </p>
+    <p id="text2" class="text">
+      Habis aku gatau harus gimana.. maap👉👈
+    </p>
+    <p id="text3" class="text">
+      aku tau kamu pasti kecewa, tapi tapi kann..
+    </p>
+    <p id="text4" class="text">
+      JUJUR KAMU UDAH KEREN KOK SAYANGGG
+    </p>
+    <p id="text5" class="text">
+      you have passed this semester very gooddd and i'm proud of youuu🤍
+    </p>
+    <p id="text6" class="text">
+      aku ga bakal maksa kamu buat langsung seneng dan lupa, 
+      sedih dulu gapapaa aku temeninn yahh, atau kamu mau sendiri juga gapapaa
+      yang penting kamu baik baik aja
+    </p>
+    <p id="text7" class="text">
+      jan nyerah semester depan kita bantai yaah sengg PLUS ULTRAA!!
+    </p>
+    <button onclick="nextText()">lanjut 👉</button>
+  </div>
+
+<script>
+  let step = 1;
+
+  function nextText() {
+    step++;
+    const text = document.getElementById('text' + step);
+    if (text) {
+      text.classList.add('show');
+    } else {
+      showPopup();
+    }
+  }
+
+  function showPopup() {
+    const popup = document.createElement('div');
+    popup.innerHTML = `
+      <div class="popup-bg">
+        <div class="popup">
+          <h2>🤍</h2>
+          <p>sini akh peluk</p>
+
+          <!-- GAMBAR AWAL -->
+          <img id="popupImg" src="sini-cat.png" class="popup-img" alt="hug">
+
+          <div id="catZone"></div>
+          <button onclick="showCats(this)">peluk balik</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(popup);
+  }
+
+  function showCats(btn) {
+    // HILANGIN GAMBAR PERTAMA
+    const firstImg = document.getElementById('popupImg');
+    if (firstImg) firstImg.remove();
+
+    // MUNCULIN GAMBAR PELUK
+    const zone = document.getElementById('catZone');
+    zone.innerHTML = `
+      <img src="hug-cat.png" class="hug-img" alt="hug">
+    `;
+
+    btn.textContent = 'hehe 🤍';
+    btn.disabled = true;
+  }
+</script>
+
+</body>
+</html>
